@@ -1,4 +1,10 @@
-# Quartz
+# ryanwwest instructions
+
+To develop, `./run-me-when-developing.sh` so that hugo-obsidian fetches and transforms (changes wikilinks) the symlinked markdown blog posts in `content/`, then hugo actually builds the static site. Easiest to use my linux box at `x/ryanwwest.com/` which nginx is serving as the local staging environment for the site. 
+
+View  [[config.toml]] for some configurations and [[data/config.yaml]] for others, layouts/partials/giscus.html for comment system. But in reality, I've tweaked so many things in partials/ and css that ctrl-f is the best.
+
+# Original info
 
 Host your second brain and [digital garden](https://jzhao.xyz/posts/networked-thought) for free. Quartz features
 

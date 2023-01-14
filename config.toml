@@ -1,6 +1,5 @@
 baseURL = "/"
 relativeURLs = true
-disablePathToLower = false
 languageCode = "en-us"
 ignoreFiles = [
     "/content/templates/*",
@@ -9,6 +8,10 @@ ignoreFiles = [
 summaryLength = 20
 paginate = 10
 enableGitInfo = true
+avatarURL = "images/rwiconblue.png"
+dateFormat = "2006-01-02"
+
+# https://orcid.org/0000-0002-1806-4294
 
 [markup]
     [markup.tableOfContents]
@@ -26,8 +29,15 @@ enableGitInfo = true
         lineNos = true
         lineNumbersInTable = true
         style = "dracula"
-    [frontmatter]
-        lastmod = ["lastmod", ":git", "date", "publishDate"]
-        publishDate = ["publishDate", "date"]
+    [frontmatter]   # https://stackoverflow.com/questions/59655470/hugo-date-vs-publishdate
+        lastmod = [":git", "updated"]
+        publishDate = ["created"]
+        date = ["created"]
     [markup.goldmark.renderer]
         unsafe = true
+
+
+############################
+## Comments
+############################
+# To configure Giscus, see layouts/partials/giscus.html

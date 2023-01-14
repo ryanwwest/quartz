@@ -1,0 +1,90 @@
+<script>
+  
+    function getGiscusTheme() {
+    const quartoTheme = localStorage.getItem("quarto-color-scheme");
+    //const giscusTheme = quartoTheme === "alternate" ? "dark" : "light";
+    const giscusTheme = quartoTheme === "alternate" ? "dark" : "/assets/giscus.css";
+    return giscusTheme;
+  }
+  
+  function setGiscusTheme() {
+    function sendMessage(message) {
+      const iframe = document.querySelector('iframe.giscus-frame');
+      if (!iframe) return;
+      iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+    }
+    sendMessage({
+      setConfig: {
+        theme: getGiscusTheme(),
+      },
+    });
+  }
+  
+  document.addEventListener('DOMContentLoaded', function () {
+    const giscusAttributes = {
+      "src": "https://giscus.app/client.js",
+      "data-repo": "ryanwwest/comments",
+      "data-repo-id": "R_kgDOIwj5aw",
+      "data-category": "Blog Post Comments",
+      "data-category-id": "DIC_kwDOIwj5a84CTiCZ",
+      "data-mapping": "title",
+      "data-strict": "0",
+      "data-reactions-enabled": "1",
+      "data-emit-metadata": "0",
+      "data-input-position": "top",
+      "data-theme": getGiscusTheme(),
+      "data-lang": "en",
+      "crossorigin": "anonymous",
+      "async": "",
+    };
+  
+    // Dynamically create script tag
+    const giscusScript = document.createElement("script");
+    Object.entries(giscusAttributes).forEach(([key, value]) => giscusScript.setAttribute(key, value));
+    document.body.appendChild(giscusScript);
+  
+    // Update giscus theme when theme switcher is clicked
+    const toggle = document.querySelector('.quarto-color-scheme-toggle');
+    if (toggle) {
+      toggle.addEventListener('click', setGiscusTheme);
+    }
+  });
+
+  (function() {
+    var dmmq = window.matchMedia('(prefers-color-scheme: dark)');
+    var giscusFrame;
+    function updateGiscus() {
+        if (!giscusFrame) giscusFrame = document.querySelector('iframe.giscus-frame');
+        if (dmmq.matches) {
+            // Dark theme
+            giscusFrame.contentWindow.postMessage({ giscus: { setConfig: { theme: 'dark' } } }, 'https://giscus.app');
+        } else {
+            // Light theme
+            giscusFrame.contentWindow.postMessage({ giscus: { setConfig: { theme: 'light' } } }, 'https://giscus.app');
+        }
+    }
+    setTimeout(updateGiscus, 1000); // leave time for giscus to load
+    dmmq.addEventListener('change', updateGiscus);
+})();
+    
+  </script>
+<noscript>Please enable JavaScript to view the comments powered by giscus.</noscript>
+
+
+<!-- <script src="https://giscus.app/client.js"
+  data-repo="ryanwwest/comments"
+  data-repo-id="R_kgDOIwj5aw"
+  data-category="Blog Post Comments"
+  data-category-id="DIC_kwDOIwj5a84CTiCZ"
+  data-mapping="title"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="1"
+  data-input-position="top"
+  data-theme="dark"
+  data-lang="en"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async>
+</script> -->
+

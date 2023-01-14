@@ -1,5 +1,4 @@
-<h3>{{ i18n "backlinks" }}</h3>
-<ul class="backlinks">
+    <!-- moved to make the backlinks take up less space if there are none  -->
     {{$url := urls.Parse .Site.BaseURL }}
     {{$host := strings.TrimRight "/" $url.Path }}
     {{$curPage := strings.TrimPrefix $host (strings.TrimRight "/" .Page.RelPermalink)}}
@@ -7,6 +6,8 @@
     {{$inbound := index $linkIndex.index.backlinks $curPage}}
     {{$contentTable := getJSON "/assets/indices/contentIndex.json"}}
     {{if $inbound}}
+<h3>{{ i18n "backlinks" }}</h3>
+<ul class="backlinks">
     {{$backlinks := dict "SENTINEL" "SENTINEL"}}
     {{range $k, $v := $inbound}}
       {{$cleanedInbound := replace $v.source " " "-"}}
@@ -22,9 +23,7 @@
       </li>
       {{end}}
     {{- end -}}
-    {{else}}
-    <li>
-      {{ i18n "no_backlinks" }}
-    </li>
-    {{end}}
 </ul>
+    {{else}}
+    <p style="margin-block-start: 0; margin-block-end: 0;"><i>{{ i18n "no_backlinks" }}</i></p>
+    {{end}}
