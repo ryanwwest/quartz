@@ -1,26 +1,5 @@
 <script>
-  
-    function getGiscusTheme() {
-    const quartoTheme = localStorage.getItem("quarto-color-scheme");
-    //const giscusTheme = quartoTheme === "alternate" ? "dark" : "light";
-    const giscusTheme = quartoTheme === "alternate" ? "dark" : "/assets/giscus.css";
-    return giscusTheme;
-  }
-  
-  function setGiscusTheme() {
-    function sendMessage(message) {
-      const iframe = document.querySelector('iframe.giscus-frame');
-      if (!iframe) return;
-      iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
-    }
-    sendMessage({
-      setConfig: {
-        theme: getGiscusTheme(),
-      },
-    });
-  }
-  
-  document.addEventListener('DOMContentLoaded', function () {
+  function addGiscus(theme) {
     const giscusAttributes = {
       "src": "https://giscus.app/client.js",
       "data-repo": "ryanwwest/comments",
@@ -32,59 +11,67 @@
       "data-reactions-enabled": "1",
       "data-emit-metadata": "0",
       "data-input-position": "top",
-      "data-theme": getGiscusTheme(),
+      "data-theme": theme,
       "data-lang": "en",
       "crossorigin": "anonymous",
       "async": "",
     };
   
-    // Dynamically create script tag
+    // Dynamically create script tag, insert above footer
+    footer = document.getElementById("giscusdiv");
+    // backlinks = document.getElementById("rwwbacklinks");
     const giscusScript = document.createElement("script");
     Object.entries(giscusAttributes).forEach(([key, value]) => giscusScript.setAttribute(key, value));
-    document.body.appendChild(giscusScript);
-  
-    // Update giscus theme when theme switcher is clicked
-    const toggle = document.querySelector('.quarto-color-scheme-toggle');
-    if (toggle) {
-      toggle.addEventListener('click', setGiscusTheme);
+    footer.appendChild(giscusScript);
+  }
+
+  function getGiscusTheme() {
+    console.log("getGissucTheme");
+    const userPref = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
+    const currentTheme = localStorage.getItem('theme') ?? userPref
+    return currentTheme;
+    // thm = document.documentElement.getAttribute('saved-theme') also returns correctly but unneeded
+    if (currentTheme === "dark") {
+      return "dark_tritanopia";
+      return "http://x/ryanwwest.com/giscus.css";
+    } else {
+      return "http://x/ryanwwest.com/giscus.css";
+      // return "light_tritanopia";
+    }
+  }
+
+  function removeThenReaddGiscus(theme) {
+    console.log("removereadd");
+    theme = getGiscusTheme()
+    console.log("got new theem");
+    footer = document.getElementById("giscusdiv");
+    const giscus = document.getElementsByClassName("giscus");
+    giscus[0].parentNode.removeChild(giscus[0]);
+
+    // now readd with the presumably new theme
+    addGiscus(theme);
+  }
+
+
+
+  // load on page open
+  document.addEventListener('DOMContentLoaded', addGiscus, getGiscusTheme());
+
+  // reload whole thing if dark mode changes, changing theme. Disadvantages of this are if user
+  // loaded extra comments or wrote something in the comment box, those will be lost. But seems
+  // unlikely since you can only change themes at top of webpage.
+  window.addEventListener('DOMContentLoaded', () => {
+    console.log("good bbelow");
+    // Darkmode toggle
+    const toggleSwitch = document.querySelector('#darkmode-toggle');
+    
+    // listen for toggle
+    toggleSwitch.addEventListener('change', removeThenReaddGiscus);
+
+    if (currentTheme === 'dark') {
+        toggleSwitch.checked = true
     }
   });
 
-  (function() {
-    var dmmq = window.matchMedia('(prefers-color-scheme: dark)');
-    var giscusFrame;
-    function updateGiscus() {
-        if (!giscusFrame) giscusFrame = document.querySelector('iframe.giscus-frame');
-        if (dmmq.matches) {
-            // Dark theme
-            giscusFrame.contentWindow.postMessage({ giscus: { setConfig: { theme: 'dark' } } }, 'https://giscus.app');
-        } else {
-            // Light theme
-            giscusFrame.contentWindow.postMessage({ giscus: { setConfig: { theme: 'light' } } }, 'https://giscus.app');
-        }
-    }
-    setTimeout(updateGiscus, 1000); // leave time for giscus to load
-    dmmq.addEventListener('change', updateGiscus);
-})();
-    
-  </script>
+</script>
 <noscript>Please enable JavaScript to view the comments powered by giscus.</noscript>
-
-
-<!-- <script src="https://giscus.app/client.js"
-  data-repo="ryanwwest/comments"
-  data-repo-id="R_kgDOIwj5aw"
-  data-category="Blog Post Comments"
-  data-category-id="DIC_kwDOIwj5a84CTiCZ"
-  data-mapping="title"
-  data-strict="0"
-  data-reactions-enabled="1"
-  data-emit-metadata="1"
-  data-input-position="top"
-  data-theme="dark"
-  data-lang="en"
-  data-loading="lazy"
-  crossorigin="anonymous"
-  async>
-</script> -->
-
