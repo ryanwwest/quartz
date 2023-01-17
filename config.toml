@@ -41,3 +41,7 @@ dateFormat = "2006-01-02"
 ## Comments
 ############################
 # To configure Giscus, see layouts/partials/giscus.html
+
+
+[params]
+  about_page_title = 'About Me'

@@ -6,7 +6,7 @@ import shutil
 # This script fetches all of the blog entries in zk/blog along with all images that the entries reference,
 # and puts them into content/ and content/media/.
 
-# usage: python3 obsidian-to-quartz.py ~/g/zk/media/ ~/g/zk/blog/ ~/g/quartz/content/media/ ~/g/quartz/content/
+# usage: python3 obsidian-to-quartz.py /s/zk/media/ /s/zk/blog/ ~/g/quartz/content/media/ ~/g/quartz/content/
 
 # naive because matches [[image.png^anything invalid after .png]]. should only match | after
 regex = re.compile("\[\[(.*\.png|.*\.jpeg|.*\.jpg|.*\.gif).*\]\]", flags=re.IGNORECASE)

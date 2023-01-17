@@ -28,7 +28,10 @@
       {{partial "toc.html" .}}
       {{partial "textprocessing.html" . }}
     </article>
-    {{partial "giscus.html" .}}
+
+    {{ if not (eq .Title $.Site.Params.about_page_title) }}
+      {{partial "giscus.html" .}}
+    {{ end}}
     {{ partial "footer.html" .}}
 </div>
 </body>

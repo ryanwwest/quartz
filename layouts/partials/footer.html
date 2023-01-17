@@ -1,17 +1,22 @@
 
 
 <hr/>
-<div id="giscusdiv"></div>
 
-{{if $.Site.Data.config.enableFooter}}
-<div class="page-end" id="footer">
-    <div class="backlinks-container">
-        {{partial "backlinks.html" .}}
+{{ if not (eq .Title $.Site.Params.about_page_title) }}
+    <!-- This giscusdiv dictates where the Giscus comments will be placed when lazily loaded as the user scrolls to the end of the page. -->
+    <div id="giscusdiv"></div>
+
+    <p style="margin-block-start: 0;">You can also read and write comments directly on the <a href="https://github.com/ryanwwest/comments/discussions?discussions_q={{.Title}}">Github discussion</a>.</p>
+    {{if $.Site.Data.config.enableFooter}}
+    <div class="page-end" id="footer">
+        <div class="backlinks-container">
+            {{partial "backlinks.html" .}}
+        </div>
+        <!-- <div>
+            {{partial "graph.html" .}}
+        </div> -->
     </div>
-    <!-- <div>
-        {{partial "graph.html" .}}
-    </div> -->
-</div>
+    {{end}}
 {{end}}
 
 {{partial "contact.html" .}}
