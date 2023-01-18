@@ -1,17 +1,13 @@
 baseURL = "/"
 relativeURLs = true
 languageCode = "en-us"
-ignoreFiles = [
-    "/content/templates/*",
-    "/content/private/*",
-]
 summaryLength = 20
 paginate = 10
 enableGitInfo = true
 avatarURL = "images/rwiconblue.png"
 dateFormat = "2006-01-02"
 
-# https://orcid.org/0000-0002-1806-4294
+# todo add https://orcid.org/0000-0002-1806-4294
 
 [markup]
     [markup.tableOfContents]
@@ -42,6 +38,11 @@ dateFormat = "2006-01-02"
 ############################
 # To configure Giscus, see layouts/partials/giscus.html
 
+# The below section adds draft: true markdown frontmatter to every note in blog/ or content/ that doesn't already have a key for draft. This makes it so markdown files have to be whitelisted by explicitly adding 'draft: false' before they are broadcast, which is important since I'm autosyncing and autopublishing the contents of blog/. https://discourse.gohugo.io/t/how-to-set-all-md-files-front-matter-draft-false-default-in-config-file-or-other-method/30854/3
+[[cascade]]
+draft = true
+[cascade._target]
+kind = 'page'
 
 [params]
   about_page_title = 'About Me'
