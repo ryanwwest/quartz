@@ -3,8 +3,10 @@
 set -e # fail on any error
 
 HUGO_PUBLIC_DIR_OUTPUT="${1:-/home/rww/g/quartz/public/}"
+HUGO_ARGS=""
 if [[ "$1" = "-p" ]] ; then  # for publishing to production
     HUGO_PUBLIC_DIR_OUTPUT="/home/rww/g/websitev4-publichtml/public_html/"
+    HUGO_ARGS="--buildDrafts"
 fi
 echo --- Publishing site to $HUGO_PUBLIC_DIR_OUTPUT ---
 
@@ -24,5 +26,5 @@ rm -rf "$HUGO_PUBLIC_DIR_OUTPUT"indices/*Index*.min.json
 
 # hugo builds static html site in public/ (or another location such as production websitev4-publichtml/public_html/) using all of the above
 echo --- Building static site with hugo ---
-hugo --destination $HUGO_PUBLIC_DIR_OUTPUT
+hugo --destination $HUGO_PUBLIC_DIR_OUTPUT $HUGO_ARGS
 
