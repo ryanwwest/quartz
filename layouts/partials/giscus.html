@@ -1,81 +1,107 @@
-<script>
-  function addGiscus(theme) {
-    const giscusAttributes = {
-      "src": "https://giscus.app/client.js",
-      "data-repo": "ryanwwest/comments",
-      "data-repo-id": "R_kgDOIwj5aw",
-      "data-category": "Blog Post Comments",
-      "data-category-id": "DIC_kwDOIwj5a84CTiCZ",
-      "data-mapping": "title",
-      "data-strict": "0",
-      "data-reactions-enabled": "1",
-      "data-emit-metadata": "0",
-      "data-input-position": "top",
-      "data-theme": theme,
-      "data-lang": "en",
-      "crossorigin": "anonymous",
-      "async": "",
-    };
-  
-    // Dynamically create script tag, insert above footer
-    footer = document.getElementById("giscusdiv");
-    // backlinks = document.getElementById("rwwbacklinks");
-    const giscusScript = document.createElement("script");
-    Object.entries(giscusAttributes).forEach(([key, value]) => giscusScript.setAttribute(key, value));
-    footer.appendChild(giscusScript);
-  }
+<script language="Javascript" type="text/javascript">
+function addGiscus(theme) {
+  const giscusAttributes = {
+    "src": "https://giscus.app/client.js",
+    "data-repo": "ryanwwest/comments",
+    "data-repo-id": "R_kgDOIwj5aw",
+    "data-category": "Blog Post Comments",
+    "data-category-id": "DIC_kwDOIwj5a84CTiCZ",
+    "data-mapping": "title",
+    "data-strict": "0",
+    "data-reactions-enabled": "1",
+    "data-emit-metadata": "0",
+    "data-input-position": "top",
+    "data-theme": theme,
+    "data-lang": "en",
+    "crossorigin": "anonymous",
+    "async": "",
+  };
+
+  // Dynamically create script tag, insert above footer
+  footer = document.getElementById("giscusdiv");
+  // backlinks = document.getElementById("rwwbacklinks");
+  const giscusScript = document.createElement("script");
+  Object.entries(giscusAttributes).forEach(([key, value]) => giscusScript.setAttribute(key, value));
+  footer.appendChild(giscusScript);
+}
 
 function getGiscusTheme() {
-    console.log("getGissucTheme");
-    const userPref = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
-    const currentTheme = localStorage.getItem('theme') ?? userPref
-    return currentTheme;
-    // thm = document.documentElement.getAttribute('saved-theme') also returns correctly but unneeded
-    if (currentTheme === "dark") {
-      return "dark_tritanopia";
-      return "http://x/ryanwwest.com/giscus.css";
-    } else {
-      return "http://x/ryanwwest.com/giscus.css";
-      // return "light_tritanopia";
-    }
+  const userPref = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
+  const currentTheme = localStorage.getItem('theme') ?? userPref
+  return currentTheme;
+  // thm = document.documentElement.getAttribute('saved-theme') also returns correctly but unneeded
+  if (currentTheme === "dark") {
+    return "dark_tritanopia";
+    return "http://x/ryanwwest.com/giscus.css";
+  } else {
+    return "http://x/ryanwwest.com/giscus.css";
+    // return "light_tritanopia";
+  }
+}
+
+function removeThenReaddGiscus(theme) {
+  console.log("removereadd");
+  theme = getGiscusTheme()
+  console.log("got Giscus theme");
+  footer = document.getElementById("giscusdiv");
+
+  const giscus = document.getElementsByClassName("giscus");
+  if (giscus !== null && giscus.length > 0) {
+      giscus[0].parentNode.removeChild(giscus[0]);
   }
 
-  function removeThenReaddGiscus(theme) {
-    console.log("removereadd");
-    theme = getGiscusTheme()
-    console.log("got new theme");
-    footer = document.getElementById("giscusdiv");
-    const giscus = document.getElementsByClassName("giscus");
-    giscus[0].parentNode.removeChild(giscus[0]);
+  // now readd with the presumably new theme
+  addGiscus(theme);
+  return false; // keep because of this: https://stackoverflow.com/a/688228
+}
 
-    // now readd with the presumably new theme
-    addGiscus(theme);
-    return false; // used because of this: https://stackoverflow.com/a/688228
+function onPageLoaded() {
+  console.log("This should always run, including when navigating between Hugo pages or reloading");
+  addGiscus(getGiscusTheme());
+  // Darkmode toggle
+  const toggleSwitch = document.querySelector('#darkmode-toggle');
+
+  // For the reload giscus theme button at the bottom.
+  var a = document.getElementById("giscusreload");
+  a.onclick = removeThenReaddGiscus;
+
+
+  // listen for toggle
+  toggleSwitch.addEventListener('change', removeThenReaddGiscus);
+
+  if (currentTheme === 'dark') {
+      toggleSwitch.checked = true
   }
-
-
-
-  // load on page open
-  document.addEventListener('DOMContentLoaded', addGiscus, getGiscusTheme());
-
   // reload whole thing if dark mode changes, changing theme. Disadvantages of this are if user
   // loaded extra comments or wrote something in the comment box, those will be lost. But seems
   // unlikely since you can only change themes at top of webpage.
-  window.addEventListener('DOMContentLoaded', () => {
-    // Darkmode toggle
-    const toggleSwitch = document.querySelector('#darkmode-toggle');
-
-    var a = document.getElementById("giscusreload");
-    a.onclick = removeThenReaddGiscus;
+  console.log('Loaded Giscus helper code');
+}
 
 
-    // listen for toggle
-    toggleSwitch.addEventListener('change', removeThenReaddGiscus);
 
-    if (currentTheme === 'dark') {
-        toggleSwitch.checked = true
-    }
-  });
+// None of this was working for me either...
+//// FYI need to always run post-load code like this because of https://stackoverflow.com/a/39993724/8370708.
+//if (document.readyState !== 'loading') {
+//    console.log('document is already ready, just execute code here');
+//        onPageLoaded();
+////window.addEventListener ? 
+////    window.addEventListener("load", function() { onPageLoaded() }) 
+////    : 
+////    window.attachEvent && window.attachEvent("onload", function() { onPageLoaded() });
+////    console.log('hmmm');
+//} else {
+//    document.addEventListener('DOMContentLoaded', function () {
+//        console.log('document was not ready, place code here');
+//        onPageLoaded();
+//    });
+//}
+
+window.addEventListener('pageshow', function(event) {
+    console.log("ddd");
+    console.log(event);
+        onPageLoaded();
+});
 
 </script>
-<noscript>Please enable JavaScript to view the comments powered by giscus.</noscript>
+<noscript>Please enable JavaScript to view the comments (powered by giscus), or alternatively read/write comments directly on <a href="https://github.com/ryanwwest/comments/discussions?discussions_q={{.Title}}">Github</a>.</noscript>
