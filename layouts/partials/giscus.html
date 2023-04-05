@@ -78,30 +78,11 @@ function onPageLoaded() {
   console.log('Loaded Giscus helper code');
 }
 
-
-
-// None of this was working for me either...
-//// FYI need to always run post-load code like this because of https://stackoverflow.com/a/39993724/8370708.
-//if (document.readyState !== 'loading') {
-//    console.log('document is already ready, just execute code here');
-//        onPageLoaded();
-////window.addEventListener ? 
-////    window.addEventListener("load", function() { onPageLoaded() }) 
-////    : 
-////    window.attachEvent && window.attachEvent("onload", function() { onPageLoaded() });
-////    console.log('hmmm');
-//} else {
-//    document.addEventListener('DOMContentLoaded', function () {
-//        console.log('document was not ready, place code here');
-//        onPageLoaded();
-//    });
-//}
-
-window.addEventListener('pageshow', function(event) {
-    console.log("ddd");
-    console.log(event);
-        onPageLoaded();
-});
+window.addEventListener('DOMContentLoaded', onPageLoaded);
+// required for quartz theme which uses SPA-like instant navigation and thus doesn't otherwise
+// fire a DOMContentLoaded or onload event when navigating between pages.
+// (https://discourse.gohugo.io/t/running-javascript-after-either-reload-or-page-navigation/43772)
+window.addEventListener('million:navigate', onPageLoaded);
 
 </script>
 <noscript>Please enable JavaScript to view the comments (powered by giscus), or alternatively read/write comments directly on <a href="https://github.com/ryanwwest/comments/discussions?discussions_q={{.Title}}">Github</a>.</noscript>
