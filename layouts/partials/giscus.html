@@ -25,7 +25,7 @@
     footer.appendChild(giscusScript);
   }
 
-  function getGiscusTheme() {
+function getGiscusTheme() {
     console.log("getGissucTheme");
     const userPref = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
     const currentTheme = localStorage.getItem('theme') ?? userPref
@@ -43,13 +43,14 @@
   function removeThenReaddGiscus(theme) {
     console.log("removereadd");
     theme = getGiscusTheme()
-    console.log("got new theem");
+    console.log("got new theme");
     footer = document.getElementById("giscusdiv");
     const giscus = document.getElementsByClassName("giscus");
     giscus[0].parentNode.removeChild(giscus[0]);
 
     // now readd with the presumably new theme
     addGiscus(theme);
+    return false; // used because of this: https://stackoverflow.com/a/688228
   }
 
 
@@ -61,10 +62,13 @@
   // loaded extra comments or wrote something in the comment box, those will be lost. But seems
   // unlikely since you can only change themes at top of webpage.
   window.addEventListener('DOMContentLoaded', () => {
-    console.log("good bbelow");
     // Darkmode toggle
     const toggleSwitch = document.querySelector('#darkmode-toggle');
-    
+
+    var a = document.getElementById("giscusreload");
+    a.onclick = removeThenReaddGiscus;
+
+
     // listen for toggle
     toggleSwitch.addEventListener('change', removeThenReaddGiscus);
 

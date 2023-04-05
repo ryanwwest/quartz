@@ -6,7 +6,7 @@
     <!-- This giscusdiv dictates where the Giscus comments will be placed when lazily loaded as the user scrolls to the end of the page. -->
     <div id="giscusdiv"></div>
 
-    <p style="margin-block-start: 0;">If comments are missing, refresh the page or read/write comments directly on the <a href="https://github.com/ryanwwest/comments/discussions?discussions_q={{.Title}}">Github discussion</a>.</p>
+    <p style="margin-block-start: 0;">If comments are missing, <a id="giscusreload" href="#giscusdiv">click to reload them</a> or read/write comments directly on <a href="https://github.com/ryanwwest/comments/discussions?discussions_q={{.Title}}">Github</a>.</p>
     {{if $.Site.Data.config.enableFooter}}
     <div class="page-end" id="footer">
         <div class="backlinks-container">
