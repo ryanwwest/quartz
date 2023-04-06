@@ -40,9 +40,7 @@ function getGiscusTheme() {
 }
 
 function removeThenReaddGiscus(theme) {
-  console.log("removereadd");
   theme = getGiscusTheme()
-  console.log("got Giscus theme");
   footer = document.getElementById("giscusdiv");
 
   const giscus = document.getElementsByClassName("giscus");
@@ -52,18 +50,18 @@ function removeThenReaddGiscus(theme) {
 
   // now readd with the presumably new theme
   addGiscus(theme);
+  console.log("Readded Giscus");
   return false; // keep because of this: https://stackoverflow.com/a/688228
 }
 
 function onPageLoaded() {
-  console.log("This should always run, including when navigating between Hugo pages or reloading");
   addGiscus(getGiscusTheme());
   // Darkmode toggle
   const toggleSwitch = document.querySelector('#darkmode-toggle');
 
   // For the reload giscus theme button at the bottom.
-  var a = document.getElementById("giscusreload");
-  a.onclick = removeThenReaddGiscus;
+  // var a = document.getElementById("giscusreload");
+  // a.onclick = removeThenReaddGiscus;
 
 
   // listen for toggle

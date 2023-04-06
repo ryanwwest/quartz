@@ -1,3 +1,5 @@
+# see also data/config.yaml for Quartz-specific config
+
 baseURL = "/"
 relativeURLs = true
 languageCode = "en-us"
@@ -6,6 +8,7 @@ paginate = 10
 enableGitInfo = true
 avatarURL = "images/rwiconblue.png"
 dateFormat = "2006-01-02"
+disablePathToLower = true
 
 # todo add https://orcid.org/0000-0002-1806-4294
 

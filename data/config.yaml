@@ -6,7 +6,7 @@ enableLatex: true
 enableCodeBlockTitle: true
 enableCodeBlockCopy: true
 enableCallouts: true
-enableSPA: true
+enableSPA: false  # while instant-like pages are very nice, this causes glitches with giscus sometimes not unloading between nevigation (especially back to home)
 enableFooter: true
 enableContextualBacklinks: true
 enableRecentNotes: true
@@ -28,4 +28,4 @@ links:
   - link_name: GitHub
     link: https://github.com/ryanwwest
   - link_name: RSS
-    link: /index.xml/
+    link: /index.xml

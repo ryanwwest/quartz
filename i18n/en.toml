@@ -56,7 +56,7 @@ other = "Ryan's DevTech Blog"
 other = "first 3 {{ .notes }}"
 
 [search_for_something]
-other = "[CURRENTLY BROKEN] Search for something..."
+other = "Search for something..."
 
 [toc]
 other = "Table of Contents"
