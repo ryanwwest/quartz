@@ -50,7 +50,7 @@ other = "Search Icon"
 other = "Icon to open search"
 
 [recent_notes]
-other = "Ryan's DevTech Blog"
+other = "DevTech Blog"
 
 [first_3_notes]
 other = "first 3 {{ .notes }}"

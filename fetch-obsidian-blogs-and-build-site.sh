@@ -3,10 +3,10 @@
 set -e # fail on any error
 
 HUGO_PUBLIC_DIR_OUTPUT="${1:-/home/rww/g/quartz/public/}"
-HUGO_ARGS=""
+HUGO_ARGS="--buildDrafts"
 if [[ "$1" = "-p" ]] ; then  # for publishing to production
     HUGO_PUBLIC_DIR_OUTPUT="/home/rww/g/websitev4-publichtml/public_html/"
-    HUGO_ARGS="--buildDrafts"
+    HUGO_ARGS=""
 fi
 echo --- Publishing site to $HUGO_PUBLIC_DIR_OUTPUT ---
 
