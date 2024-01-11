@@ -5,6 +5,7 @@ set -e # fail on any error
 HUGO_PUBLIC_DIR_OUTPUT="${1:-/home/rww/g/quartz/public/}"
 HUGO_ARGS="--buildDrafts"
 if [[ "$1" = "-p" ]] ; then  # for publishing to production
+    echo --- Publishing to websitev4-publichtml for ryanwwest.com ---
     HUGO_PUBLIC_DIR_OUTPUT="/home/rww/g/websitev4-publichtml/public_html/"
     HUGO_ARGS=""
 fi

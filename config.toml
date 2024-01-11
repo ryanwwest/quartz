@@ -12,6 +12,12 @@ disablePathToLower = true
 
 # todo add https://orcid.org/0000-0002-1806-4294
 
+# can enable to change rss feed location to feed.xml, but idc
+#[outputFormats]
+#[outputFormats.RSS]
+#mediatype = "application/rss"
+#baseName = "feed"
+
 [markup]
     [markup.tableOfContents]
         endLevel = 3

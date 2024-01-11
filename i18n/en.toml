@@ -50,7 +50,7 @@ other = "Search Icon"
 other = "Icon to open search"
 
 [recent_notes]
-other = "DevTech Blog"
+other = "Posts about Tech, PKM, Software Dev, and Research"
 
 [first_3_notes]
 other = "first 3 {{ .notes }}"
