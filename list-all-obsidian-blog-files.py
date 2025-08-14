@@ -16,7 +16,9 @@ import shutil
 #    ex: python3 list-all-obsidian-blog-files.py /s/zk/media/ /s/zk/blog/
 
 # naive because matches [[image.png^anything invalid after .png]]. should only match | after
-regex = re.compile("\[\[(.*\.png|.*\.jpeg|.*\.jpg|.*\.gif).*\]\]", flags=re.IGNORECASE)
+#regex = re.compile("\[\[(.*\.png|.*\.jpeg|.*\.jpg|.*\.gif).*\]\]", flags=re.IGNORECASE)
+regex = re.compile(r"\[\[(.*?\.(?:png|jpeg|jpg|gif))(?:\|.*)?\]\]", flags=re.IGNORECASE)
+regex = re.compile(r"\[\[([^|\]]+\.(?:png|jpe?g|gif))(?:\|[^\]]*)?\]\]", flags=re.IGNORECASE)
 
 # While I store all my images in the media/ dir of my Obsidian vault, this looks through the whole vault
 def find_image_filenames_in_one_blog_entry(blog_path, image_vault_dir):
