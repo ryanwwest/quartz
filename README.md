@@ -4,6 +4,8 @@ To develop, `fetch-obsidian-blogs-and-build-site.sh` so that hugo-obsidian fetch
 
 View  [[config.toml]] for some configurations and [[data/config.yaml]] for others, layouts/partials/giscus.html for comment system. But in reality, I've tweaked so many things in partials/ and css that ctrl-f is the best. For CSS changes, see inside assets/styles/. There is a custom.scss file with some changes, but I've made many others also to other files in there.
 
+I also put custom files into the files/ directory which get saved not into this git repo, but into the public v4 repo and updated onto rwwserve and then I can serve them on website with direct links (so not linked from other markdown pages).
+
 # Original info
 
 Host your second brain and [digital garden](https://jzhao.xyz/posts/networked-thought) for free. Quartz features
